@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Button, Alert} from 'react-native';
 import { FormLabel, FormInput} from 'react-native-elements';
 import {addNewDeck} from '../helpers/asyncHelper';
+import {NavigationActions} from 'react-navigation';
 
 class NewDeck extends Component {
 
@@ -15,10 +16,12 @@ class NewDeck extends Component {
         addNewDeck(newDeck).then(() => {
             Alert.alert('Success', 'New Deck Added',
             [
-                {text: 'OK', onPress: () => this.props.navigation.navigate('Deck', {
-                    title: value,
-                    questions : []
-                })},
+                {text: 'OK', onPress: () => this.props.navigation.dispatch(NavigationActions.reset({
+                    index: 0,
+                    actions: [
+                      NavigationActions.navigate({routeName: 'Home'})
+                    ]
+                  }))},
             ],)
         })
     }

@@ -1,31 +1,26 @@
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, FlatList} from 'react-native';
+import {connect} from 'react-redux';
+import {getDecks} from '../actions/index';
 import { Button } from 'react-native-elements';
 import * as API from '../helpers/asyncHelper';
 import DeckItem from './DeckItem';
 
 class Decks extends Component {
 
-    constructor() {
-        super();
-        this.state = {
-            decks: {}
-        }
+    state = {
+        ready: false
     }
     
-    componentDidMount() {
-        
+    componentDidMount() {      
         API.getDecks().then(result => {
             console.log("IN DECKS: ", result);
+            this.props.getDecks(result);
             this.setState({
-                decks: result
+                ready: !this.state.ready
             })
             }
-        );
-
-        
-        
-        
+        );        
     }
 
     renderItem = ({item}) => (
@@ -39,11 +34,11 @@ class Decks extends Component {
 
     render() {
 
-        console.log(this.state ? this.state.decks : "EMPTY");
+        console.log("PROPS: ", this.state.decks);
         return (
             
                 <FlatList 
-                    data={Object.values(this.state.decks)}
+                    data={Object.values(this.props.decks)}
                     renderItem={this.renderItem}
                     keyExtractor={(item, index) => index}
                 />
@@ -51,6 +46,18 @@ class Decks extends Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        decks: state
+    }
+}
+
+// function mapDispatchToProps() {
+//     return {
+//         fetchAllDecks: getDecks
+//     }
+// }
 
 
 const styles = StyleSheet.create({
@@ -62,4 +69,4 @@ const styles = StyleSheet.create({
     },
   });
 
-export default Decks;
+export default connect(mapStateToProps, {getDecks})(Decks);
