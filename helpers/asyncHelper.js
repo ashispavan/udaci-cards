@@ -28,6 +28,10 @@ let data = {
     }
 };
 
+export function addNewDeck(deck) {
+    return AsyncStorage.mergeItem(DECKS_KEY, JSON.stringify(deck));
+}
+
 export function getDecks() {
     return AsyncStorage.getItem(DECKS_KEY).then(results => {
         console.log(JSON.parse(results));
