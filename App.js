@@ -9,6 +9,7 @@ import Decks from './components/Decks';
 import Deck from './components/Deck';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import NewDeck from './components/NewDeck';
+import NewCard from './components/NewCard';
 import { AppLoading } from 'expo';
 
 
@@ -54,6 +55,9 @@ const Stack = StackNavigator({
   },
   Deck: {
     screen: Deck
+  },
+  NewCard: {
+    screen: NewCard
   }
 });
 

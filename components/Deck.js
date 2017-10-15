@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
-import { Button } from 'react-native-elements';
+import {View, Text, Button} from 'react-native';
 
 class Deck extends Component {
 
@@ -21,15 +20,17 @@ class Deck extends Component {
 
     render() {
 
+        console.log("NAV PROPS: ", this.props.navigation)
+
         return (
             
             (this.state.title ? <View>
                 <Text>{this.state.title}</Text>
                 <Text>{this.state.questions.length}</Text>
 
-                <Button
-                raised
-                icon={{name: 'cached'}}
+                <Button onPress={() => this.props.navigation.navigate('NewCard')}
+                title='Add Card' />
+                <Button onPress={() => console.log('Quiz started')}
                 title='Start Quiz' />
 
 
