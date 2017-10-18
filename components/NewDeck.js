@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {View, Text, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Button, Alert} from 'react-native';
 import { FormLabel, FormInput} from 'react-native-elements';
+import {addDeck} from '../actions/index';
 import {addNewDeck} from '../helpers/asyncHelper';
 import {NavigationActions} from 'react-navigation';
 import { TextField } from 'react-native-material-textfield';
@@ -20,6 +21,8 @@ class NewDeck extends Component {
             return;
         }
         const newDeck = {[value]: {title: value, questions: []}};
+        
+        this.props.dispatch(addDeck(newDeck));
         addNewDeck(newDeck).then(() => {
             Alert.alert('Success', 'New Deck Added',
             [
@@ -27,7 +30,8 @@ class NewDeck extends Component {
                     title: value,
                     questions : []
                 })}
-            ])
+            ]);
+            this.setState({text: ''});
         })
     }
 
@@ -45,8 +49,6 @@ class NewDeck extends Component {
 }
 
 function mapStateToProps(state, {navigation}) {
-    console.log("NEW DECK NAVIGATION: ", navigation);
-    console.log("NEW DECK STATE: ", state);
     return {
         decks: state,
         navigation: navigation

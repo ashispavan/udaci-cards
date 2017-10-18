@@ -11,21 +11,23 @@ class Deck extends Component {
 
     componentDidMount() {
         this.setState({
-            title: this.props.navigation.state.params.title,
-            questions: this.props.navigation.state.params.questions
+            title: this.props.navigation.state.params.title
         })
 
     }
     
 
     render() {
+
+        const {title} = this.state;
+        const questions = this.props.decks[title] && this.props.decks[title].questions;
         return (
             
-            (this.state.title ? <View>
-                <Text>{this.state.title}</Text>
-                <Text>{this.state.questions.length}</Text>
+            (title ? <View>
+                <Text>{title}</Text>
+                <Text>{questions.length}</Text>
 
-                <Button onPress={() => this.props.navigation.navigate('NewCard')}
+                <Button onPress={() => this.props.navigation.navigate('NewCard', {title, questions})}
                 title='Add Card' />
                 <Button onPress={() => console.log('Quiz started')}
                 title='Start Quiz' />

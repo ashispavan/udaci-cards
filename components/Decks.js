@@ -12,14 +12,10 @@ class Decks extends Component {
         ready: false
     }
     
-    componentDidMount() {      
-        API.getDecks().then(result => {
-            // console.log("IN DECKS: ", result);
-            this.props.getDecks(result);
-            this.setState({
-                ready: !this.state.ready
-            })
-            }
+    componentDidMount() { 
+        const {dispatch} = this.props;   
+        API.getDecks().then(result => 
+            dispatch(getDecks(result))
         );        
     }
 
@@ -46,9 +42,10 @@ class Decks extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, {navigation}) {
     return {
-        decks: state
+        decks: state,
+        navigation: navigation
     }
 }
 
@@ -68,4 +65,4 @@ const styles = StyleSheet.create({
     },
   });
 
-export default connect(mapStateToProps, {getDecks})(Decks);
+export default connect(mapStateToProps)(Decks);

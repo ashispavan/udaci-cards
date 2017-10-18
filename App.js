@@ -14,7 +14,7 @@ import { AppLoading } from 'expo';
 
 
 const store = createStore(reducer,  compose(
-  applyMiddleware(ReduxPromise), autoRehydrate()
+   autoRehydrate()
 ));
 
 export default class App extends React.Component {

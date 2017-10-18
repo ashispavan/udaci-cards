@@ -1,10 +1,13 @@
 import React from 'react';
-import {View, StyleSheet, Text, TextInput, Button, KeyboardAvoidingView} from 'react-native';
+import {View, StyleSheet, Text, TextInput, Button, KeyboardAvoidingView, Alert} from 'react-native';
+import {connect} from 'react-redux';
 import { TextField } from 'react-native-material-textfield';
+import {addQuestion} from '../actions/index';
+import {addCardToDeck} from '../helpers/asyncHelper';
 
 
 
-export default class SingleDeck extends React.Component {
+class NewCard extends React.Component {
 
     state = {
         question: '',
@@ -12,6 +15,23 @@ export default class SingleDeck extends React.Component {
     }
 
     addQuestion = () => {
+        const {question, answer} = this.state;
+        const {title, questions} = this.props.navigation.state.params;
+
+        const params = {question, answer, title, questions};
+        this.props.dispatch(addQuestion(params));
+        addCardToDeck({
+            card: {question, answer},
+            deck: title
+        });
+
+        Alert.alert('Success', 'New Card Added to Deck',
+        [
+            {
+                text: 'OK', onPress: () =>
+                this.props.navigation.goBack()
+            }
+        ],);
 
     }
 
@@ -38,3 +58,12 @@ const style = StyleSheet.create({
         marginTop: '50'
     }
 });
+
+function mapStateToProps(state, {navigation}) {
+    return {
+        navigation,
+        decks: state
+    }
+}
+
+export default connect(mapStateToProps)(NewCard);
