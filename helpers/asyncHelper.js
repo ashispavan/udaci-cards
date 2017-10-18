@@ -40,7 +40,6 @@ export function addNewDeck(deck) {
 
 export function getDecks() {
     return AsyncStorage.getItem(DECKS_KEY).then(results => {
-        console.log(JSON.parse(results));
         return results === null ? initialData() : JSON.parse(results)
     });
 }

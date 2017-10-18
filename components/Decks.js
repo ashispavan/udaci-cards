@@ -14,7 +14,7 @@ class Decks extends Component {
     
     componentDidMount() {      
         API.getDecks().then(result => {
-            console.log("IN DECKS: ", result);
+            // console.log("IN DECKS: ", result);
             this.props.getDecks(result);
             this.setState({
                 ready: !this.state.ready
@@ -34,7 +34,6 @@ class Decks extends Component {
 
     render() {
 
-        console.log("PROPS: ", this.state.decks);
         return (
             
                 <FlatList 

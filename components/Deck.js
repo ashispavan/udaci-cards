@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, Button} from 'react-native';
+import {connect} from 'react-redux';
 
 class Deck extends Component {
 
@@ -14,14 +15,10 @@ class Deck extends Component {
             questions: this.props.navigation.state.params.questions
         })
 
-        console.log('INSIDE DECK: ', this.state);
     }
     
 
     render() {
-
-        console.log("NAV PROPS: ", this.props.navigation)
-
         return (
             
             (this.state.title ? <View>
@@ -41,4 +38,11 @@ class Deck extends Component {
     }
 }
 
-export default Deck;
+function mapStateToProps(state, {navigation}) {
+    return {
+        decks: state,
+        navigation: navigation
+    };
+}
+
+export default connect(mapStateToProps)(Deck);

@@ -3,7 +3,6 @@ import {ADD_NEW_DECK, ADD_NEW_QUESTION, FETCH_DECKS} from '../actions'
 export default function decksReducer(state = {}, action) {
     switch (action.type) {
         case FETCH_DECKS:
-            console.log("REACHED REDUCERS ", action.decks);
             return {...state, ...action.decks};
 
         case ADD_NEW_DECK:
