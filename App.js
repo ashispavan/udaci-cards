@@ -7,10 +7,12 @@ import {persistStore, autoRehydrate} from 'redux-persist';
 import reducer from './reducers/index';
 import Decks from './components/Decks';
 import Deck from './components/Deck';
+import Quiz from './components/Quiz';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import NewDeck from './components/NewDeck';
 import NewCard from './components/NewCard';
 import { AppLoading } from 'expo';
+import {setLocalNotification} from './helpers/notificationHelper';
 
 
 const store = createStore(reducer,  compose(
@@ -24,6 +26,7 @@ export default class App extends React.Component {
   }
   componentDidMount() {
     persistStore(store,{storage: AsyncStorage}, () => {this.setState({isReady: true})});
+    setLocalNotification();
   }
   
 
@@ -58,6 +61,9 @@ const Stack = StackNavigator({
   },
   NewCard: {
     screen: NewCard
+  },
+  Quiz: {
+    screen: Quiz
   }
 });
 

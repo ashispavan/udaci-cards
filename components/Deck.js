@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, Button} from 'react-native';
 import {connect} from 'react-redux';
 
+
 class Deck extends Component {
 
     state = {
@@ -15,7 +16,6 @@ class Deck extends Component {
         })
 
     }
-    
 
     render() {
 
@@ -23,14 +23,14 @@ class Deck extends Component {
         const questions = this.props.decks[title] && this.props.decks[title].questions;
         return (
             
-            (title ? <View>
+            (title ? <View style={{flex: 1}}>
                 <Text>{title}</Text>
                 <Text>{questions.length}</Text>
 
-                <Button onPress={() => this.props.navigation.navigate('NewCard', {title, questions})}
-                title='Add Card' />
-                <Button onPress={() => console.log('Quiz started')}
-                title='Start Quiz' />
+                <Button raised primary title="Add Card" onPress={() => this.props.navigation.navigate('NewCard', {title, questions})}
+                 />
+                <Button raised primary title="Start Quiz" onPress={() => this.props.navigation.navigate('Quiz', {title, questions})}
+                 />
 
 
             </View> : <View><Text>Nothing</Text></View>
