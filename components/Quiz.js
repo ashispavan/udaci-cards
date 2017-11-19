@@ -47,20 +47,20 @@ class Quiz extends Component {
                 {isQuestionAvailable ? (
                     <View style={styles.container}>
 
-                        <View style={[styles.group, {justifyContent: 'flex-start', flex: 1}]}>
+                        <View style={{justifyContent: 'flex-start', flex: 1}}>
                             <View>
                                 <Text>{questionsLeft} / {questions.length}</Text>
                             </View>
                         </View>
 
-                        <View style={[styles.group, {flex: 4}]}>
+                        <View style={{flex: 4}}>
                             <View>
                                 {showAnswer ? (
                                     <View style={{alignItems: 'center'}}>
                                         <Text style={{fontSize: 36}}>{questions[currentCard].answer}</Text>
 
                                         <TouchableOpacity onPress={this.showAnswer}>
-                                            <Text style={{fontSize: 18, color: '#70dd2f'}}>Question</Text>
+                                            <Text style={{fontSize: 18, color: 'green'}}>Show Question</Text>
                                         </TouchableOpacity>
 
                                     </View>) : (
@@ -68,7 +68,7 @@ class Quiz extends Component {
                                         <Text style={{fontSize: 36}}>{questions[currentCard].question}</Text>
 
                                         <TouchableOpacity onPress={this.showAnswer}>
-                                            <Text style={{fontSize: 18, color: '#ff463f'}}>Answer</Text>
+                                            <Text style={{fontSize: 18, color: 'red'}}>Show Answer</Text>
                                         </TouchableOpacity>
 
                                     </View>
@@ -76,64 +76,33 @@ class Quiz extends Component {
                             </View>
                         </View>
 
-                        <View style={{alignItems: 'center', justifyContent: 'space-around', flex: 2}}>
+                        <View style={styles.actionButtons}>
                             <View style={styles.container}>
-
-                                <TouchableOpacity onPress={this.onCorrect}>
-                                    <Text style={{
-                                        backgroundColor: '#70dd2f',
-                                        justifyContent: 'center',
-                                        height: 30,
-                                        textAlign: 'center',
-                                        width: 200
-                                    }}>Correct</Text>
+                                <TouchableOpacity onPress={this.onCorrect} style={[styles.buttonStyle, {backgroundColor: '#008000'}]}>
+                                    <Text style={styles.buttonText}>Correct</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={this.onIncorrect}>
-                                    <Text style={{
-                                        backgroundColor: '#ff463f',
-                                        justifyContent: 'center',
-                                        height: 30,
-                                        textAlign: 'center',
-                                        width: 200,
-                                        marginTop: 20
-                                    }}>Incorrect</Text>
+                                <TouchableOpacity onPress={this.onIncorrect} style={[styles.buttonStyle, {backgroundColor: '#D4271B'}]}>
+                                    <Text style={styles.buttonText}>Incorrect</Text>
                                 </TouchableOpacity>
-
                             </View>
-
                         </View>
-
                     </View>
 
                 ) : (
                     <View style={styles.container}>
-                        <Text>Score: {correctAnswers}</Text>
+                        <View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                            <Text style={{fontSize: 20}}>Score: {correctAnswers}</Text>
+                        </View>
 
-                        <View style={{alignItems: 'center', justifyContent: 'space-around', flex: 2}}>
+                        <View style={styles.actionButtons}>
                             <View style={styles.container}>
-
-                                <TouchableOpacity onPress={this.startQuiz}>
-                                    <Text style={{
-                                        backgroundColor: '#70dd2f',
-                                        justifyContent: 'center',
-                                        height: 30,
-                                        textAlign: 'center',
-                                        width: 200
-                                    }}>Start Quiz</Text>
+                                <TouchableOpacity onPress={this.startQuiz} style={styles.buttonStyle}>
+                                    <Text style={styles.buttonText}>Start Quiz</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={this.backToDeck}>
-                                    <Text style={{
-                                        backgroundColor: '#ff463f',
-                                        justifyContent: 'center',
-                                        height: 30,
-                                        textAlign: 'center',
-                                        width: 200,
-                                        marginTop: 20
-                                    }}>Back to Deck</Text>
+                                <TouchableOpacity onPress={this.backToDeck} style={styles.buttonStyle}>
+                                    <Text style={styles.buttonText}>Back to Deck</Text>
                                 </TouchableOpacity>
-
                             </View>
-
                         </View>
                     </View>
                 )}
@@ -146,6 +115,25 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 20,
+    },
+    buttonStyle: {
+        backgroundColor: '#1194F6',
+        padding: 10,
+        borderRadius: 2,
+        height: 40,
+        margin: 10,
+        width: 300,
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+    buttonText: {
+        textAlign: 'center',
+        color: 'white'
+    },
+    actionButtons: {
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        flex: 3
     }
 });
 

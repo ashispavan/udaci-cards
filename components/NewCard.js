@@ -16,6 +16,14 @@ class NewCard extends React.Component {
 
     addQuestion = () => {
         const {question, answer} = this.state;
+        if (question === '') {
+            Alert.alert('Error', 'Question cannot be empty');
+            return;
+        }
+        if (answer === '') {
+            Alert.alert('Error', 'Answer cannot be empty');
+            return;
+        }
         const {title, questions} = this.props.navigation.state.params;
 
         const params = {question, answer, title, questions};
