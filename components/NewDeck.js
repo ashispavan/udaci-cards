@@ -16,8 +16,13 @@ class NewDeck extends Component {
 
     addDeck = () => {
         const value = this.state.text;
-        if(!value) {
+        const decks = this.props.decks;
+        if (!value) {
             Alert.alert("Error", "Title cannot be empty");
+            return;
+        }
+        if (decks[value]) {
+            Alert.alert("Error", "Deck name already used");
             return;
         }
         const newDeck = {[value]: {title: value, questions: []}};
@@ -39,9 +44,9 @@ class NewDeck extends Component {
         return (
             
             <KeyboardAvoidingView behavior='padding' style={styles.container}>
-                <TextField  label="What is the title of your new Deck?" value={this.state.text} onChangeText={text => this.setState({text})} />
-                <Button  onPress={this.addDeck}
-                title='Submit' />
+                <TextField label="What is the title of your new Deck?" value={this.state.text} onChangeText={text => this.setState({text})} />
+                <Button style={styles.submitButton}  onPress={this.addDeck}
+                title='Create Deck' />
             </KeyboardAvoidingView>
             
         );
@@ -59,16 +64,14 @@ function mapStateToProps(state, {navigation}) {
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      justifyContent: 'center',
-      padding: 10,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      width: '95%'
+        flex: 1,
+        justifyContent: 'center',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        width: '75%'
     },
-    buttonStyle: {
-
+    submitButton: {
+        marginTop: '50'
     }
   });
 
